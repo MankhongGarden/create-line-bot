@@ -1,0 +1,42 @@
+{
+  "name": "create-line-bot",
+  "version": "0.1.0",
+  "description": "Scaffold a LINE bot that survives production: 5-second webhook ack on Vercel, dispatcher/worker split, four-layer idempotency, role-based Rich Menu, LIFF login wired to Supabase.",
+  "type": "module",
+  "bin": {
+    "create-line-bot": "index.js"
+  },
+  "files": [
+    "index.js",
+    "template"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "line",
+    "line-bot",
+    "line-messaging-api",
+    "liff",
+    "line-oa",
+    "nextjs",
+    "supabase",
+    "vercel",
+    "webhook",
+    "idempotency",
+    "rich-menu",
+    "starter",
+    "template",
+    "thailand"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MankhongGarden/create-line-bot.git"
+  },
+  "homepage": "https://github.com/MankhongGarden/create-line-bot#readme",
+  "bugs": {
+    "url": "https://github.com/MankhongGarden/create-line-bot/issues"
+  },
+  "author": "MankhongGarden",
+  "license": "MIT"
+}

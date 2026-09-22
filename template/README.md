@@ -1,0 +1,75 @@
+# LINE bot
+
+Generated with [`create-line-bot`](https://github.com/MankhongGarden/create-line-bot).
+
+## Setup
+
+1. `cp .env.example .env.local` and fill in:
+
+| Variable | Where it comes from |
+| --- | --- |
+| `LINE_CHANNEL_SECRET` | LINE Developers → Messaging API channel → Basic settings |
+| `LINE_CHANNEL_ACCESS_TOKEN` | Messaging API channel → Messaging API tab (long-lived token) |
+| `NEXT_PUBLIC_LIFF_ID` | LINE Login channel → LIFF tab |
+| `NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID` | LINE Login channel → Basic settings |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project settings → API |
+| `WORKER_SECRET` | Any random string, e.g. `openssl rand -hex 32` |
+| `APP_URL` | Your deployment origin, no trailing slash |
+
+2. `npm run db:push` — applies `supabase/migrations/0001_init.sql`.
+3. `npm run dev`, expose it (`ngrok http 3000` or deploy), then set the channel webhook to `https://<origin>/api/line/webhook` and press Verify.
+
+## How a message flows
+
+```
+LINE  ──POST /api/line/webhook──►  verify signature
+                                   insert jobs  (one DB round-trip)
+                                   return 200            ◄── under LINE's 5s limit
+                                   after() → POST /api/line/worker
+                                                    │
+                                              claim jobs (SKIP LOCKED)
+                                              reply / push
+```
+
+The webhook never does real work. Everything slow happens in the worker, which has its own
+`maxDuration` and can be retried without the webhook timing out.
+
+## Idempotency
+
+LINE retries webhooks, and Vercel can run a function twice. Four independent guards:
+
+| Layer | Mechanism |
+| --- | --- |
+| Webhook event | `line_jobs.event_id` unique — a redelivered event is ignored on insert |
+| Reply token | `reply_token_used` flipped by a conditional update before the reply is sent |
+| Job execution | `claim_line_jobs()` moves rows `pending → processing` with `FOR UPDATE SKIP LOCKED` |
+| Business action | partial unique index on `dedupe_key` (defaults to the LINE message id) |
+
+Stuck jobs are re-claimed after 5 minutes, up to 5 attempts.
+
+## Rich Menu
+
+Put a 2500×843 PNG at `assets/rich-menu-default.png`, then:
+
+```bash
+npm run rich-menu
+```
+
+The script deletes the previous menu with the same name before creating the new one, so running
+it twice leaves one menu, not two. Edit `menus` in `scripts/rich-menu.ts` to add role-specific
+menus and link them with `POST /v2/bot/user/{userId}/richmenu/{richMenuId}`.
+
+## LIFF login
+
+`/liff` initialises LIFF, sends the ID token to `/api/liff/link`, and the server verifies it with
+LINE before upserting `line_users`. The client never asserts who it is — the ID token is checked
+server-side every time.
+
+## Deploy
+
+```bash
+vercel
+vercel env add LINE_CHANNEL_SECRET production   # repeat for each variable
+```
+
+`.env.local` is not read by Vercel. Every variable must be added to the project.
