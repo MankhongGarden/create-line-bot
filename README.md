@@ -35,6 +35,9 @@ in Claude Code and ask:
 Generic LINE MCP servers can send messages. This one also knows your webhook queue, so it can tell
 you *why* a message was never answered. Broadcast is off unless you opt in.
 
+Already have a bot? The same server ships on its own as
+[line-bot-ops-mcp](https://github.com/MankhongGarden/line-bot-ops-mcp): `npx -y line-bot-ops-mcp`.
+
 ## What you get
 
 ```
