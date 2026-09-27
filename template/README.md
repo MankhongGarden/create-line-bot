@@ -73,3 +73,28 @@ vercel env add LINE_CHANNEL_SECRET production   # repeat for each variable
 ```
 
 `.env.local` is not read by Vercel. Every variable must be added to the project.
+
+## Run the bot from Claude (MCP)
+
+The project ships an MCP server, so Claude Code, Claude Desktop, Cursor or any MCP client can
+operate the bot with the same credentials as the app.
+
+Claude Code picks up `.mcp.json` automatically when you open the project. For other clients, point
+them at:
+
+```bash
+node --env-file=.env.local --import tsx mcp/server.ts
+```
+
+| Tool | What it does |
+| --- | --- |
+| `line_queue_health` | Jobs per status, oldest pending age, stuck workers — start here when the bot "stops replying" |
+| `line_failed_jobs` | Latest failures with error, user and message text |
+| `line_retry_job` | Put a failed job back to pending |
+| `line_bot_info` · `line_message_quota` · `line_followers_insight` | Account info, quota used this month, daily follower stats |
+| `line_get_profile` · `line_find_users` | Look up a LINE profile or linked users by name/role |
+| `line_richmenu_list` · `line_link_richmenu` | See menus and the default; swap one user's menu |
+| `line_push_text` | Message one user, group or room |
+| `line_broadcast` | Message every friend — only registered when `LINE_MCP_ALLOW_BROADCAST=true` |
+
+Every tool runs on your machine with your keys. Nothing is proxied.

@@ -23,6 +23,18 @@ six problems, and none of them are in the quickstart:
 | **LIFF ID tokens** are trusted client-side far too often | Token is verified against LINE's API server-side on every link |
 | `.env.local` **is not read by Vercel** | Deploy section spells out `vercel env add` per variable |
 
+## Operate it from Claude, Cursor or any AI agent
+
+Every generated project includes an MCP server wired to its own queue and database. Open the project
+in Claude Code and ask:
+
+> "Why did the bot stop replying?" → `line_queue_health`, `line_failed_jobs`, `line_retry_job`
+> "How many followers did we gain yesterday, and how much push quota is left?"
+> "Switch user U123… to the seller menu."
+
+Generic LINE MCP servers can send messages. This one also knows your webhook queue, so it can tell
+you *why* a message was never answered. Broadcast is off unless you opt in.
+
 ## What you get
 
 ```
@@ -33,6 +45,8 @@ src/app/liff/page.tsx               LIFF init + login
 src/lib/line.ts                     signature, reply, push, verifyIdToken (fetch only)
 src/lib/jobs.ts                     enqueue, claim, reply-token guard
 scripts/rich-menu.ts                idempotent Rich Menu uploader
+mcp/server.ts                       MCP server: queue health, retries, push, Rich Menu, insight
+.mcp.json                           Claude Code picks the server up automatically
 supabase/migrations/0001_init.sql   line_jobs, line_users, claim_line_jobs()
 ```
 
@@ -65,8 +79,16 @@ Each shortcut above started as a written-up incident:
 
 ## Status
 
-v0.1 — one template: bot + LIFF + Supabase on Vercel. Issues and PRs welcome, especially from
-anyone running LINE bots at scale in Thailand or Japan.
+v0.2 — bot + LIFF + Supabase on Vercel, plus an MCP server to run it from an AI agent. Issues and
+PRs welcome, especially from anyone running LINE bots at scale in Thailand or Japan.
+
+## Sponsor
+
+LINE changes its Messaging API several times a year, and a scaffolder is only useful if what it
+generates still works on the day you run it. Sponsorship pays for keeping it that way: tracking API
+changes, re-testing the template against new Next.js and Supabase releases, and answering issues.
+
+If your team runs a bot built from this, [sponsor on GitHub](https://github.com/sponsors/MankhongGarden).
 
 ## License
 

@@ -1,7 +1,7 @@
 {
   "name": "create-line-bot",
-  "version": "0.1.0",
-  "description": "Scaffold a LINE bot that survives production: 5-second webhook ack on Vercel, dispatcher/worker split, four-layer idempotency, role-based Rich Menu, LIFF login wired to Supabase.",
+  "version": "0.2.0",
+  "description": "Scaffold a LINE bot that survives production, with an MCP server so Claude, Cursor or any AI agent can run it: queue health, failed jobs, push, Rich Menu, follower insight.",
   "type": "module",
   "bin": {
     "create-line-bot": "index.js"
@@ -27,7 +27,12 @@
     "rich-menu",
     "starter",
     "template",
-    "thailand"
+    "thailand",
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "ai-agent",
+    "claude"
   ],
   "repository": {
     "type": "git",

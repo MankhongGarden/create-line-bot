@@ -9,6 +9,7 @@ const templateDir = join(here, "template");
 const RENAME = [
   ["_gitignore", ".gitignore"],
   ["_env.example", ".env.example"],
+  ["_mcp.json", ".mcp.json"],
 ];
 
 function parseArgs(argv) {
@@ -84,6 +85,8 @@ Next steps
 
 Then point your LINE channel webhook at
   https://<your-deployment>/api/line/webhook
+
+Operate it from Claude Code: open the folder, the MCP server in .mcp.json loads itself.
 
 Full setup guide: https://github.com/MankhongGarden/create-line-bot#setup
 `);
