@@ -86,7 +86,7 @@ Next steps
 Then point your LINE channel webhook at
   https://<your-deployment>/api/line/webhook
 
-Operate it from Claude Code: open the folder, the MCP server in .mcp.json loads itself.
+Operate it from Claude Code: open the folder, .mcp.json loads line-bot-ops-mcp.
 
 Full setup guide: https://github.com/MankhongGarden/create-line-bot#setup
 `);

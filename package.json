@@ -1,7 +1,7 @@
 {
   "name": "create-line-bot",
-  "version": "0.2.0",
-  "description": "Scaffold a LINE bot that survives production, with an MCP server so Claude, Cursor or any AI agent can run it: queue health, failed jobs, push, Rich Menu, follower insight.",
+  "version": "0.2.1",
+  "description": "Scaffold a LINE bot that survives production on Next.js + Supabase + Vercel, wired to line-bot-ops-mcp so Claude, Cursor or any AI agent can operate it.",
   "type": "module",
   "bin": {
     "create-line-bot": "index.js"
@@ -29,7 +29,6 @@
     "template",
     "thailand",
     "mcp",
-    "mcp-server",
     "model-context-protocol",
     "ai-agent",
     "claude"

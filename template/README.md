@@ -14,7 +14,9 @@ Generated with [`create-line-bot`](https://github.com/MankhongGarden/create-line
 | `NEXT_PUBLIC_LINE_LOGIN_CHANNEL_ID` | LINE Login channel → Basic settings |
 | `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` / `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Project settings → API |
 | `WORKER_SECRET` | Any random string, e.g. `openssl rand -hex 32` |
-| `APP_URL` | Your deployment origin, no trailing slash |
+
+The webhook calls the worker on the same origin the request came in on, so `WORKER_SECRET` never
+leaves your deployment and there is no URL to configure.
 
 2. `npm run db:push` — applies `supabase/migrations/0001_init.sql`.
 3. `npm run dev`, expose it (`ngrok http 3000` or deploy), then set the channel webhook to `https://<origin>/api/line/webhook` and press Verify.
@@ -76,14 +78,15 @@ vercel env add LINE_CHANNEL_SECRET production   # repeat for each variable
 
 ## Run the bot from Claude (MCP)
 
-The project ships an MCP server, so Claude Code, Claude Desktop, Cursor or any MCP client can
-operate the bot with the same credentials as the app.
+The project comes wired to [line-bot-ops-mcp](https://github.com/MankhongGarden/line-bot-ops-mcp)
+(a dev dependency), so Claude Code, Claude Desktop, Cursor or any MCP client can operate the bot
+with the same credentials as the app.
 
 Claude Code picks up `.mcp.json` automatically when you open the project. For other clients, point
 them at:
 
 ```bash
-node --env-file=.env.local --import tsx mcp/server.ts
+node --env-file=.env.local node_modules/line-bot-ops-mcp/dist/index.js
 ```
 
 | Tool | What it does |

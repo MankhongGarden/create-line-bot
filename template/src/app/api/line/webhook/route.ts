@@ -18,9 +18,12 @@ export async function POST(request: Request) {
 
   await enqueue(events);
 
+  // Derive the worker URL from this request so WORKER_SECRET can only ever go to this same deployment.
+  const workerUrl = new URL("/api/line/worker", request.url);
+
   after(async () => {
     try {
-      await fetch(`${process.env.APP_URL}/api/line/worker`, {
+      await fetch(workerUrl, {
         method: "POST",
         headers: { "x-worker-secret": process.env.WORKER_SECRET ?? "" },
       });

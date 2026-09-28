@@ -25,8 +25,8 @@ six problems, and none of them are in the quickstart:
 
 ## Operate it from Claude, Cursor or any AI agent
 
-Every generated project includes an MCP server wired to its own queue and database. Open the project
-in Claude Code and ask:
+Every generated project comes wired to [line-bot-ops-mcp](https://github.com/MankhongGarden/line-bot-ops-mcp),
+an MCP server that reads its own queue and database. Open the project in Claude Code and ask:
 
 > "Why did the bot stop replying?" → `line_queue_health`, `line_failed_jobs`, `line_retry_job`
 > "How many followers did we gain yesterday, and how much push quota is left?"
@@ -35,8 +35,7 @@ in Claude Code and ask:
 Generic LINE MCP servers can send messages. This one also knows your webhook queue, so it can tell
 you *why* a message was never answered. Broadcast is off unless you opt in.
 
-Already have a bot? The same server ships on its own as
-[line-bot-ops-mcp](https://github.com/MankhongGarden/line-bot-ops-mcp): `npx -y line-bot-ops-mcp`.
+Already have a bot? Run the same server on its own: `npx -y line-bot-ops-mcp`.
 
 ## What you get
 
@@ -48,8 +47,7 @@ src/app/liff/page.tsx               LIFF init + login
 src/lib/line.ts                     signature, reply, push, verifyIdToken (fetch only)
 src/lib/jobs.ts                     enqueue, claim, reply-token guard
 scripts/rich-menu.ts                idempotent Rich Menu uploader
-mcp/server.ts                       MCP server: queue health, retries, push, Rich Menu, insight
-.mcp.json                           Claude Code picks the server up automatically
+.mcp.json                           Claude Code loads line-bot-ops-mcp automatically
 supabase/migrations/0001_init.sql   line_jobs, line_users, claim_line_jobs()
 ```
 
@@ -82,7 +80,7 @@ Each shortcut above started as a written-up incident:
 
 ## Status
 
-v0.2 — bot + LIFF + Supabase on Vercel, plus an MCP server to run it from an AI agent. Issues and
+v0.2 — bot + LIFF + Supabase on Vercel, wired to an MCP server to run it from an AI agent. Issues and
 PRs welcome, especially from anyone running LINE bots at scale in Thailand or Japan.
 
 ## Sponsor

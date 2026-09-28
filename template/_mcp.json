@@ -2,7 +2,7 @@
   "mcpServers": {
     "line-bot": {
       "command": "node",
-      "args": ["--env-file=.env.local", "--import", "tsx", "mcp/server.ts"]
+      "args": ["--env-file=.env.local", "node_modules/line-bot-ops-mcp/dist/index.js"]
     }
   }
 }
