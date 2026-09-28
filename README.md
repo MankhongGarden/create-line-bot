@@ -93,6 +93,10 @@ changes, re-testing the template against new Next.js and Supabase releases, and 
 
 If your team runs a bot built from this, [sponsor on GitHub](https://github.com/sponsors/MankhongGarden).
 
+## Privacy
+
+The CLI and the generated app send nothing to the maintainer. See [PRIVACY.md](PRIVACY.md).
+
 ## License
 
 MIT
