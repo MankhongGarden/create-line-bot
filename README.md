@@ -1,5 +1,7 @@
 # create-line-bot
 
+[![M8ven Verified](https://m8ven.ai/badge/mcp/mankhonggarden/create-line-bot?variant=verified)](https://m8ven.ai/mcp/mankhonggarden/create-line-bot)
+
 Scaffold a LINE bot that survives production.
 
 ```bash
