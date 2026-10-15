@@ -80,6 +80,12 @@ Each shortcut above started as a written-up incident:
 - [PDPA-strict analytics on Next.js + Supabase](https://github.com/MankhongGarden/nextjs-supabase-pdpa-analytics)
 - [Pre-launch smoke test for Next.js + Supabase + Stripe](https://github.com/MankhongGarden/marketplace-prelaunch-smoke-test)
 
+## Upstream fixes
+
+Fixes found while building this, sent back to LINE's own repositories:
+
+- [line/line-bot-mcp-server#635](https://github.com/line/line-bot-mcp-server/pull/635) — Flex message schema now accepts the documented `%`, keyword and decimal `px` size values (merged)
+
 ## Status
 
 v0.2 — bot + LIFF + Supabase on Vercel, wired to an MCP server to run it from an AI agent. Issues and
